@@ -5,8 +5,8 @@ class NumberToWord
   def letter_combinations(numbers)
     time_start = Time.now()
     digits = numbers.to_s
-    #return if number not valid
-    return [] if digits === '' || digits.length != 10
+    #return if number is not valid
+    return [] if digits === '' || digits.length != 10 || digits.split('').select{|digit|(digit.to_i == 0 || digit.to_i == 1)}.length > 0
     # get all letters for digits in form of array
     keys = digits.chars.map{ |number| letters_mapping[number] }
     dictionary = dictionary_words
@@ -15,7 +15,7 @@ class NumberToWord
     # for all digits
     final_words << (keys.shift.product(*keys).map(&:join) & dictionary[11]).join(", ") # match with all character
     puts "Time #{Time.now().to_f - time_start.to_f}"
-    print final_words
+    final_words
   end
 
   private
@@ -80,5 +80,7 @@ class NumberToWord
 
 end
 
-NumberToWord.new().letter_combinations(6686787825)
+
+# final_words = NumberToWord.new().letter_combinations(6686787825)
+# print final_words
 
